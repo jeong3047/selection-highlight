@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: flex;
+    overflow: hidden;
+}
+
+header {
+    padding: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+
+main {
+    flex: 1;
+    padding: 30px;
+}
+
+.content {
+    max-width: 700px;
+}
+
+.content h2 {
+    color: #667eea;
+    margin: 25px 0 15px;
+    font-size: 22px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.content p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #555;
+    text-align: justify;
+}
+
+.content p::selection {
+    background: #ffd700;
+    color: #333;
+}
+
+
+.sidebar {
+    width: 350px;
+    background: #f8f9fa;
+    padding: 30px;
+    border-left: 1px solid #e9ecef;
+}
+
+.sidebar h3 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.scrap-list {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.scrap-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrap-list::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+}
+
+.empty-message {
+    color: #868e96;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+.scrap-item {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.scrap-content {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.scrap-text {
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.scrap-time {
+    color: #adb5bd;
+    font-size: 12px;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #e74c3c;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.clear-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.clear-btn:hover {
+    background: #c0392b;
+}
+
+.tooltip {
+    position: fixed;
+    background: #2c3e50;
+    border-radius: 25px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+}
+
+.scrap-btn {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 20px;
+}
+
+.cancel-btn {
+    color: #ff6b6b !important;
+}
+
+
+/* \ud558\uc774\ub77c\uc774\ud2b8 \uae30\ubcf8 \uc2a4\ud0c0\uc77c */
+.highlight-scrap {
+    background: rgba(255, 235, 59, 0.4);
+    padding: 2px 0;
+    border-radius: 2px;
+    position: relative;
+}
+
+/* \uacb9\uce58\ub294 \uc601\uc5ed\uc5d0 \ub530\ub77c \uc810\uc810 \uc9c4\ud574\uc9d0 */
+
+
+
+
+.highlight-scrap:hover {
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+
+/* \uacb9\uce68 \ud69f\uc218 \ud45c\uc2dc */
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #e9ecef;
+    }
+    
+    main {
+        padding: 20px;
+    }
+    
+    .sidebar {
+        padding: 20px;
+    }
+}
