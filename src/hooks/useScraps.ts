@@ -6,13 +6,13 @@ import { removeAllHighlights, renderHighlightsFromOffsets } from '../utils/highl
 export const useScraps = () => {
   const [scrappedTexts, setScrappedTexts] = useState<ScrapItem[]>([]);
 
-  // localStorage에서 데이터 로드
+  // localStorage에서 문장 스크랩 데이터 로드
   useEffect(() => {
     const loaded = loadScraps();
     setScrappedTexts(loaded);
   }, []);
 
-  // 하이라이트 복원
+  // 문장 스크랩 하이라이트 복원
   useEffect(() => {
     removeAllHighlights();
     renderHighlightsFromOffsets(scrappedTexts);

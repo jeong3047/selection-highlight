@@ -1,25 +1,24 @@
 import { ScrapItem } from '../types';
-
-const STORAGE_KEY = 'scrappedTexts';
+import { STORAGE_KEYS } from '../constants';
 
 /**
- * 스크랩 데이터 저장
+ * 문장 스크랩 데이터 저장
  */
 export const saveScraps = (scraps: ScrapItem[]): void => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(scraps));
+  localStorage.setItem(STORAGE_KEYS.SCRAPPED_TEXTS, JSON.stringify(scraps));
 };
 
 /**
- * 스크랩 데이터 로드
+ * 문장 스크랩 데이터 로드
  */
 export const loadScraps = (): ScrapItem[] => {
-  const saved = localStorage.getItem(STORAGE_KEY);
+  const saved = localStorage.getItem(STORAGE_KEYS.SCRAPPED_TEXTS);
   if (!saved) return [];
 
   try {
     return JSON.parse(saved);
   } catch (e) {
-    console.error('Failed to load scraps:', e);
+    console.error('Failed to load sentence scraps:', e);
     return [];
   }
 };

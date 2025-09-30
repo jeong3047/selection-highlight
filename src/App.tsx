@@ -1,14 +1,17 @@
-import { useTextSelection } from './hooks/useTextSelection';
-import { useScraps } from './hooks/useScraps';
-import { getTextOffset } from './utils/textUtils';
-import { Tooltip } from './components/Tooltip';
-import { ScrapList } from './components/ScrapList';
-import { Content } from './components/Content';
-import './style.css';
+import { useTextSelection } from "./hooks/useTextSelection";
+import { useScraps } from "./hooks/useScraps";
+import { getTextOffset } from "./utils/textUtils";
+import { saveScrapToServer } from "./utils/scrapUtils";
+import { Tooltip } from "./components/Tooltip";
+import { ScrapList } from "./components/ScrapList";
+import { Content } from "./components/Content";
+import { CSS_CLASSES, UI_TEXT, LOCALE } from "./constants";
+import "./style.css";
 
 function App() {
   const { tooltip, currentSelection, hideTooltip } = useTextSelection();
-  const { scrappedTexts, addScrap, deleteScrap, clearAllScraps, isDuplicate } = useScraps();
+  const { scrappedTexts, addScrap, deleteScrap, clearAllScraps, isDuplicate } =
+    useScraps();
 
   const handleScrap = () => {
     if (!currentSelection) return;
@@ -25,40 +28,64 @@ function App() {
     hideTooltip();
   };
 
-  const createScrap = () => {
+  const createScrap = async () => {
     const selection = window.getSelection();
     if (!selection) return;
 
     const range = selection.getRangeAt(0);
-    const contentElement = document.querySelector('.content');
+    const contentElement = document.querySelector(`.${CSS_CLASSES.CONTENT}`);
     if (!contentElement) return;
 
-    const startOffset = getTextOffset(contentElement, range.startContainer, range.startOffset);
-    const endOffset = getTextOffset(contentElement, range.endContainer, range.endOffset);
+    const startOffset = getTextOffset(
+      contentElement,
+      range.startContainer,
+      range.startOffset
+    );
+    const endOffset = getTextOffset(
+      contentElement,
+      range.endContainer,
+      range.endOffset
+    );
 
     if (isDuplicate(startOffset, endOffset)) return;
 
-    const scrapId = Date.now().toString();
-    const scrapItem = {
-      id: scrapId,
+    // 서버 요청 형태로 문장 스크랩 데이터 전송
+    const scrapData = {
+      content: currentSelection?.text || "",
       offset: { start: startOffset, end: endOffset },
-      content: currentSelection?.text || '',
-      timestamp: new Date().toLocaleString('ko-KR'),
-      url: window.location.href,
     };
 
-    addScrap(scrapItem);
+    try {
+      const response = await saveScrapToServer(scrapData);
+
+      if (response.success) {
+        const scrapItem = {
+          id: response.id,
+          offset: { start: startOffset, end: endOffset },
+          content: currentSelection?.text || "",
+          timestamp: new Date().toLocaleString(LOCALE.KO_KR),
+          url: window.location.href,
+        };
+
+        addScrap(scrapItem);
+      }
+    } catch (error) {
+      console.error("Failed to save sentence scrap:", error);
+    }
   };
 
   return (
     <div className="container">
       <header>
-        <h1>텍스트 선택 & 스크랩 도구</h1>
-        <p>아래 텍스트를 드래그하여 선택하면 툴팁이 나타납니다.</p>
+        <h1>{UI_TEXT.HEADER_TITLE}</h1>
+        <p>{UI_TEXT.HEADER_DESCRIPTION}</p>
       </header>
-
       <Content />
-      <ScrapList scraps={scrappedTexts} onDelete={deleteScrap} onClearAll={clearAllScraps} />
+      <ScrapList
+        scraps={scrappedTexts}
+        onDelete={deleteScrap}
+        onClearAll={clearAllScraps}
+      />
       <Tooltip tooltip={tooltip} onScrap={handleScrap} />
     </div>
   );

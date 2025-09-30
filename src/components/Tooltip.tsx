@@ -20,7 +20,7 @@ export const Tooltip = ({ tooltip, onScrap }: TooltipProps) => {
       }}
     >
       <button className={`scrap-btn ${tooltip.isScraped ? 'cancel-btn' : ''}`} onClick={onScrap}>
-        {tooltip.isScraped ? '🗑️ 스크랩 취소' : '📌 스크랩'}
+        {tooltip.isScraped ? '🗑️ 문장 스크랩 취소' : '📌 문장 스크랩'}
       </button>
     </div>
   );
