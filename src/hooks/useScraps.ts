@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
-import { ScrapItem } from '../types';
-import { loadScraps, saveScraps } from '../utils/storage';
-import { removeAllHighlights, renderHighlightsFromOffsets } from '../utils/highlightUtils';
+import { useState, useEffect } from "react";
+import { ScrapItem } from "../types";
+import { loadScraps, saveScraps } from "../utils/storage";
+import {
+  removeAllHighlights,
+  renderHighlightsFromOffsets,
+} from "../utils/highlightUtils";
+import { saveHighlightedContent } from "../utils/scrapUtils";
+import { CSS_CLASSES } from "../constants";
 
 export const useScraps = () => {
   const [scrappedTexts, setScrappedTexts] = useState<ScrapItem[]>([]);
@@ -16,6 +21,14 @@ export const useScraps = () => {
   useEffect(() => {
     removeAllHighlights();
     renderHighlightsFromOffsets(scrappedTexts);
+
+    // 하이라이트가 렌더링된 후 변경된 콘텐츠를 localStorage에 저장
+    setTimeout(() => {
+      const contentElement = document.querySelector(`.${CSS_CLASSES.CONTENT}`);
+      if (contentElement && contentElement.innerHTML) {
+        saveHighlightedContent(contentElement.innerHTML);
+      }
+    }, 100);
   }, [scrappedTexts]);
 
   const addScrap = (scrap: ScrapItem) => {
@@ -37,7 +50,8 @@ export const useScraps = () => {
 
   const isDuplicate = (startOffset: number, endOffset: number): boolean => {
     return scrappedTexts.some(
-      (item) => item.offset.start === startOffset && item.offset.end === endOffset
+      (item) =>
+        item.offset.start === startOffset && item.offset.end === endOffset
     );
   };
 

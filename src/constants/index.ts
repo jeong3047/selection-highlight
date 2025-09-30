@@ -1,28 +1,29 @@
 export const CSS_CLASSES = {
-  HIGHLIGHT_SCRAP: 'highlight-scrap',
-  CONTENT: 'content',
-  CONTENT_SELECTORS: '.content p, .content h2',
+  HIGHLIGHT_SCRAP: "highlight-scrap",
+  CONTENT: "content",
+  CONTENT_SELECTORS: ".content p, .content h2",
 } as const;
 
 export const HTML_TAGS = {
-  BOLD: 'b',
+  BOLD: "b",
 } as const;
 
 export const UI_TEXT = {
-  HEADER_TITLE: '텍스트 선택 & 문장 스크랩 도구',
-  HEADER_DESCRIPTION: '아래 텍스트를 드래그하여 선택하면 툴팁이 나타납니다.',
-  SCRAP_LIST_TITLE: '📌 문장 스크랩 목록',
-  EMPTY_MESSAGE: '아직 스크랩된 문장이 없습니다.',
-  DELETE_BUTTON: '×',
-  CLEAR_ALL_BUTTON: '모두 삭제',
+  HEADER_TITLE: "텍스트 선택 & 문장 스크랩 도구",
+  HEADER_DESCRIPTION: "아래 텍스트를 드래그하여 선택하면 툴팁이 나타납니다.",
+  SCRAP_LIST_TITLE: "📌 문장 스크랩 목록",
+  EMPTY_MESSAGE: "아직 스크랩된 문장이 없습니다.",
+  DELETE_BUTTON: "×",
+  CLEAR_ALL_BUTTON: "모두 삭제",
 } as const;
 
 export const STORAGE_KEYS = {
-  SCRAPPED_TEXTS: 'scrappedSentences',
+  SCRAPPED_TEXTS: "scrappedSentences",
+  HIGHLIGHTED_CONTENT: "highlightedContent",
 } as const;
 
 export const LOCALE = {
-  KO_KR: 'ko-KR',
+  KO_KR: "ko-KR",
 } as const;
 
 export const CONTENT_TEXT = {
